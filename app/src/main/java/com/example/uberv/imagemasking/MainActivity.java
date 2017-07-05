@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
 //        Bitmap out = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
+        boolean isTransparent=bitmap.hasAlpha();
+
         ColorMatrix ma = new ColorMatrix();
         ma.setSaturation(0);
         Paint paint = new Paint();
