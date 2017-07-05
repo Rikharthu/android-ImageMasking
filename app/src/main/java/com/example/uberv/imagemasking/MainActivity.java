@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         ma.setSaturation(0);
         Paint paint = new Paint();
         paint.setColorFilter(new ColorMatrixColorFilter(ma));
-        Bitmap out = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(out);
+        Bitmap blurry = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(blurry);
         c.drawBitmap(bitmap, 0, 0, paint);
 
         Bitmap blackBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -64,19 +64,18 @@ public class MainActivity extends AppCompatActivity {
         script.setRadius(8f);
         script.setInput(input);
         script.forEach(output);
-        output.copyTo(out);
+        output.copyTo(blurry);
 
         Bitmap tmp = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(tmp);
-        canvas.drawBitmap(out, 0, 0, new Paint());
+        canvas.drawBitmap(blurry, 3, -3, new Paint());
         canvas.drawBitmap(bitmap, 0, 0, new Paint());
 
-        // recycle unused bitmaps
-        bitmap.recycle();
-        blackBitmap.recycle();
         // TODO also set according config types (channels, etc)
 
         mImageView.setImageBitmap(tmp);
+
+        //TODO .recycle() bitmaps
 
         Log.d("TAG", "DONE");
     }
